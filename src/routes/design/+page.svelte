@@ -2,30 +2,40 @@
     let clicked = false;
 </script>
 
-<div class="container-fluid outermost">
-    <div class="row fill">
-        <!-- Clicker column -->
-        <div class="col-8 left-column text-center p-3">
-            <h1>Click it!</h1>
-            <button style="all: unset"
-                on:mousedown={() => {
-                    clicked = true;
-                }}
-                on:mouseup={() => {
-                    clicked = false;
-                }}
-                on:mouseleave={() => {
-                    clicked = false;
-                }}
-            >
-                <div class="clicker border rounded shadow" class:clicked>
-
+<div class="container-fluid" style="height:100vh">
+    <div class="row h-100 outermost">
+        <!-- Left column (clicker part) -->
+        <div class="col-8 left-column">
+            <div class="h-100 d-flex flex-column">
+                <div class="row text-center">
+                    <h2>Click here!</h2>
                 </div>
-            </button>
+                <div class="row flex-grow-1 justify-content-center">
+                    <button style="all: unset"
+                    on:mousedown={() => {
+                        clicked = true;
+                    }}
+                    on:mouseup={() => {
+                        clicked = false;
+                    }}
+                    on:mouseleave={() => {
+                        clicked = false;
+                    }}
+                >
+                    <div class="clicker border rounded shadow" class:clicked>
+    
+                    </div>
+                </button>
+                </div>
+            </div>
         </div>
-        <!-- Upgrade column -->
-        <div class="col-4 right-column text-center p-3">
-            <h2>Buy upgrades!</h2>
+        <!-- Right column (upgrade part)-->
+        <div class="col-4 right-column">
+            <div class="row text-center">
+                <h2>
+                    Buy upgrades!
+                </h2>
+            </div>
         </div>
     </div>
 </div>
@@ -34,20 +44,25 @@
 
 <style>
     .outermost {
-        background-color: #242424;
+        background-color: black;
         color: rgba(255, 255, 255, 0.8);
-    }   
-
-    .fill {
-        min-height: 100vh;
+        padding: 1em;
     }
 
     .left-column {
-        border-right: 4px grey solid;
+        background-color: #242424;
+        border-right: 2px dashed black;
+        border-top-left-radius: 1em;
+        border-bottom-left-radius: 1em;
+        padding: 1em;
     }
 
     .right-column {
-        border-left: 4px grey solid;
+        background-color: #242424;
+        border-left: 2px dashed black;
+        border-top-right-radius: 1em;
+        border-bottom-right-radius: 1em;
+        padding: 1em;
     }
 
     .clicker {
