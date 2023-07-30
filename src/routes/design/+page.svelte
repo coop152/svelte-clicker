@@ -1,5 +1,6 @@
 <script lang="ts">
     let clicked = false;
+    let score = 0;
 </script>
 
 <div class="container-fluid" style="height:100vh">
@@ -8,12 +9,13 @@
         <div class="col-8 left-column">
             <div class="h-100 d-flex flex-column">
                 <div class="row text-center">
-                    <h2>Click here!</h2>
+                    <h2>Cookies: {score}</h2>
                 </div>
                 <div class="row flex-grow-1 justify-content-center">
                     <button style="all: unset"
                     on:mousedown={() => {
                         clicked = true;
+                        score++;
                     }}
                     on:mouseup={() => {
                         clicked = false;
@@ -22,9 +24,8 @@
                         clicked = false;
                     }}
                 >
-                    <div class="clicker border rounded shadow" class:clicked>
-    
-                    </div>
+                    <!-- <div class="clicker border rounded shadow" class:clicked> </div> -->
+                        <img src="cookie.png" alt="Click it!" class="clicker" class:clicked>
                 </button>
                 </div>
             </div>
@@ -68,7 +69,7 @@
     .clicker {
         width: 320px;
         height: 320px;
-        transition: transform 0.1s ease-in-out;
+        /* transition: transform 0.1s ease-in-out; */
     }
 
     .clicked {
