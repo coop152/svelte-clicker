@@ -1,11 +1,12 @@
 <script lang="ts">
+    import { storable } from "$lib/stores";
     import { onMount } from "svelte";
 
     let clicked = false;
-    let score = 0;
-    let scorePerSecond = 1;
+    let score = storable("score", 0);
+    let scorePerSecond = storable("scorePerSecond", 0);
     
-    onMount(() => {
+    onMount(async () => {
         let previousTime: number;
         let frame = requestAnimationFrame(loop);
         
@@ -17,8 +18,8 @@
             } else {
                 let delta = (now - previousTime) /1000;
                 previousTime = now;
-                let scoreToAdd = scorePerSecond * delta;
-                score += scoreToAdd;
+                let scoreToAdd = $scorePerSecond * delta;
+                $score += scoreToAdd;
             }
         }
     })
@@ -30,17 +31,17 @@
         <div class="col-8 left-column">
             <div class="h-100 d-flex flex-column">
                 <div class="row text-center">
-                    <h2>Cookies: {Math.floor(score)}</h2>
+                    <h2>Cookies: {Math.floor($score)}</h2>
                     <label>
                         Cookies per Second: 
-                        <input type="number" bind:value={scorePerSecond}>
+                        <input type="number" bind:value={$scorePerSecond}>
                     </label>
                 </div>
                 <div class="row flex-grow-1 justify-content-center">
                     <button style="all: unset"
                     on:mousedown={() => {
                         clicked = true;
-                        score++;
+                        $score++;
                     }}
                     on:mouseup={() => {
                         clicked = false;
