@@ -1,6 +1,27 @@
 <script lang="ts">
+    import { onMount } from "svelte";
+
     let clicked = false;
     let score = 0;
+    let scorePerSecond = 1;
+    
+    onMount(() => {
+        let previousTime: number;
+        let frame = requestAnimationFrame(loop);
+        
+        function loop(now: number) {
+            requestAnimationFrame(loop);
+            
+            if (!previousTime) {
+                previousTime = now;
+            } else {
+                let delta = (now - previousTime) /1000;
+                previousTime = now;
+                let scoreToAdd = scorePerSecond * delta;
+                score += scoreToAdd;
+            }
+        }
+    })
 </script>
 
 <div class="container-fluid" style="height:100vh">
@@ -9,7 +30,11 @@
         <div class="col-8 left-column">
             <div class="h-100 d-flex flex-column">
                 <div class="row text-center">
-                    <h2>Cookies: {score}</h2>
+                    <h2>Cookies: {Math.floor(score)}</h2>
+                    <label>
+                        Cookies per Second: 
+                        <input type="number" bind:value={scorePerSecond}>
+                    </label>
                 </div>
                 <div class="row flex-grow-1 justify-content-center">
                     <button style="all: unset"
